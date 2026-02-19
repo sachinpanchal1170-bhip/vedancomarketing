@@ -110,95 +110,106 @@ const Indicator = ({ value }: { value: string | boolean }) => {
    COMPARISON TABLE
 ========================= */
 
+/* =========================
+   COMPARISON TABLE
+========================= */
+
 const ComparisonTable = () => {
   return (
     <section id="packages" className="pt-4 pb-24 px-6">
       <div className="max-w-[1200px] mx-auto">
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="rounded-[20px] border border-brand-border premium-shadow bg-brand-bg overflow-hidden"
-        >
+        {/* Horizontal Scroll Wrapper (Mobile Fix) */}
+        <div className="overflow-x-auto scrollbar-hide">
 
-          {/* Sticky Header */}
-          <div className="sticky-header grid grid-cols-[220px_repeat(4,1fr)] md:grid-cols-[300px_repeat(4,1fr)]">
-            <div className="p-6 border-r border-brand-border bg-brand-text/[0.02]">
-              <span className="text-sm font-black uppercase tracking-[0.2em] opacity-80">
-                Key Features
-              </span>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="min-w-[950px] rounded-[20px] border border-brand-border premium-shadow bg-brand-bg"
+          >
+
+            {/* Sticky Header */}
+            <div className="sticky-header grid grid-cols-[220px_repeat(4,1fr)] md:grid-cols-[300px_repeat(4,1fr)]">
+              <div className="p-6 border-r border-brand-border bg-brand-text/[0.02]">
+                <span className="text-sm font-black uppercase tracking-[0.2em] opacity-80">
+                  Key Features
+                </span>
+              </div>
+
+              {PLANS.map((plan) => (
+                <div
+                  key={plan.id}
+                  className={cn(
+                    "p-6 text-center border-r border-brand-border last:border-r-0",
+                    plan.isElite && "bg-brand-text/[0.05]"
+                  )}
+                >
+                  <h3 className="text-sm font-black tracking-[0.2em] uppercase mb-2">
+                    {plan.name}
+                  </h3>
+                  <div className="text-2xl font-black">{plan.price}</div>
+                  <div className="text-xs uppercase opacity-50">/ Monthly</div>
+                </div>
+              ))}
             </div>
 
-            {PLANS.map((plan) => (
-              <div
-                key={plan.id}
-                className={cn(
-                  "p-6 text-center border-r border-brand-border last:border-r-0",
-                  plan.isElite && "bg-brand-text/[0.05]"
-                )}
-              >
-                <h3 className="text-sm font-black tracking-[0.2em] uppercase mb-2">
-                  {plan.name}
-                </h3>
-                <div className="text-2xl font-black">{plan.price}</div>
-                <div className="text-xs uppercase opacity-50">/ Monthly</div>
-              </div>
-            ))}
-          </div>
+            {/* Body */}
+            <div className="divide-y divide-brand-border bg-white/40">
 
-          {/* Body */}
-          <div className="divide-y divide-brand-border bg-white/40">
+              {FEATURE_BLOCKS.map((block, blockIdx) => (
+                <motion.div
+                  key={block.category}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: blockIdx * 0.05 }}
+                >
 
-            {FEATURE_BLOCKS.map((block, blockIdx) => (
-              <motion.div
-                key={block.category}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: blockIdx * 0.05 }}
-              >
-
-                <div className="grid grid-cols-[220px_repeat(4,1fr)] md:grid-cols-[300px_repeat(4,1fr)] bg-brand-text/[0.04] border-y border-brand-border">
-                  <div className="px-6 py-4 border-r border-brand-border font-black uppercase tracking-[0.2em] text-sm">
-                    {block.category}
-                  </div>
-                  {PLANS.map(plan => (
-                    <div key={plan.id} />
-                  ))}
-                </div>
-
-                {block.rows.map((row, rowIdx) => (
-                  <motion.div
-                    key={row.label}
-                    initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: rowIdx * 0.04 }}
-                    className="grid grid-cols-[220px_repeat(4,1fr)] md:grid-cols-[300px_repeat(4,1fr)] hover:bg-brand-text/[0.04] transition-all"
-                  >
-                    <div className="p-6 border-r border-brand-border font-bold uppercase text-sm bg-brand-text/[0.01]">
-                      {row.label}
+                  <div className="grid grid-cols-[220px_repeat(4,1fr)] md:grid-cols-[300px_repeat(4,1fr)] bg-brand-text/[0.04] border-y border-brand-border">
+                    <div className="px-6 py-4 border-r border-brand-border font-black uppercase tracking-[0.2em] text-sm">
+                      {block.category}
                     </div>
-
-                    {PLANS.map((plan) => (
-                      <div
-                        key={plan.id}
-                        className={cn(
-                          "p-6 flex items-center justify-center border-r border-brand-border last:border-r-0",
-                          plan.isElite && "bg-brand-text/[0.03]"
-                        )}
-                      >
-                        <Indicator value={row.values[plan.id]} />
-                      </div>
+                    {PLANS.map(plan => (
+                      <div key={plan.id} />
                     ))}
-                  </motion.div>
-                ))}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                  </div>
+
+                  {block.rows.map((row, rowIdx) => (
+                    <motion.div
+                      key={row.label}
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: rowIdx * 0.04 }}
+                      className="grid grid-cols-[220px_repeat(4,1fr)] md:grid-cols-[300px_repeat(4,1fr)] hover:bg-brand-text/[0.04] transition-all"
+                    >
+                      <div className="p-6 border-r border-brand-border font-bold uppercase text-sm bg-brand-text/[0.01]">
+                        {row.label}
+                      </div>
+
+                      {PLANS.map((plan) => (
+                        <div
+                          key={plan.id}
+                          className={cn(
+                            "p-6 flex items-center justify-center border-r border-brand-border last:border-r-0",
+                            plan.isElite && "bg-brand-text/[0.03]"
+                          )}
+                        >
+                          <Indicator value={row.values[plan.id]} />
+                        </div>
+                      ))}
+                    </motion.div>
+                  ))}
+
+                </motion.div>
+              ))}
+
+            </div>
+
+          </motion.div>
+        </div>
 
         {/* Common Section */}
         <motion.div
@@ -226,13 +237,10 @@ const ComparisonTable = () => {
                   transition={{ duration: 0.4, delay: i * 0.05 }}
                   className="flex items-center gap-4 p-4 rounded-xl bg-brand-text/[0.03] border border-brand-border/50"
                 >
-                  <div className="w-10 h-10 min-w-[40px] min-h-[40px] shrink-0
-                rounded-full flex items-center justify-center
-                bg-gradient-to-br from-[#214B25] to-[#2E6B35]
-                shadow-[0_6px_18px_rgba(33,75,37,0.25)]
-                transition-all duration-300">
-                  <Check className="w-5 h-5 text-white stroke-[3.5px]" />
-                </div>
+                  <div className="w-10 h-10 min-w-[40px] shrink-0 rounded-full flex items-center justify-center bg-gradient-to-br from-[#214B25] to-[#2E6B35] shadow-[0_6px_18px_rgba(33,75,37,0.25)]">
+                    <Check className="w-5 h-5 text-white stroke-[3.5px]" />
+                  </div>
+
                   <span className="text-sm font-bold opacity-80">
                     {feature}
                   </span>
