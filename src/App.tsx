@@ -34,7 +34,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img
-            src="images/logo.png"
+            src="/logo.png"
             alt="Vedanco Logo"
             className="w-12 h-12 object-contain"
           />
