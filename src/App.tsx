@@ -112,9 +112,15 @@ const MobilePricing = () => {
             {/* WhatsApp Button */}
             <a
               href={`https://wa.me/916353097642?text=${encodeURIComponent(
-`Hello Vedanco Marketing,
-I am interested in the ${plan.name} plan (${plan.price} / Monthly).
-Kindly share more details and next steps.
+`
+Hello Vedanco Marketing Team,
+
+I’m interested in your ${plan.name} plan (${plan.price} / Monthly) and would like to understand the details a bit better. Could you kindly share what all services are included, expected deliverables, and the onboarding process?
+
+Also, let me know the next steps to get started.
+
+Looking forward to your response.
+
 Thank you.`
               )}`}
               target="_blank"
