@@ -83,19 +83,17 @@ const Header = () => {
 };
 
 /* =========================
-   MOBILE PRICING CARDS
+   MOBILE PRICING
 ========================= */
 
 const MobilePricing = () => {
   return (
     <section className="block md:hidden px-4 pb-20 space-y-10">
-
       {PLANS.map((plan) => (
         <div
           key={plan.id}
           className="rounded-2xl border border-brand-border bg-white shadow-lg p-6 space-y-6"
         >
-          {/* Plan Header */}
           <div className="text-center">
             <h3 className="text-xs tracking-[0.3em] font-bold uppercase text-brand-text/70">
               {plan.name}
@@ -109,33 +107,26 @@ const MobilePricing = () => {
               / Monthly
             </div>
 
-            {/* WhatsApp Button */}
             <a
               href={`https://wa.me/916353097642?text=${encodeURIComponent(
-`
-Hello Vedanco Marketing Team,
+`Hello Vedanco Marketing Team,
 
-I’m interested in your ${plan.name} plan (${plan.price} / Monthly) and would like to understand the details a bit better. Could you kindly share what all services are included, expected deliverables, and the onboarding process?
+I’m interested in your ${plan.name} plan (${plan.price} / Monthly).
 
-Also, let me know the next steps to get started.
-
-Looking forward to your response.
+Please share complete details and next steps.
 
 Thank you.`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-             className="mt-4 block w-full text-center bg-brand-text text-white py-3 rounded-xl font-bold hover:opacity-90 transition"
+              className="mt-4 block w-full text-center bg-brand-text text-white py-3 rounded-xl font-bold hover:opacity-90 transition"
             >
               Choose Plan
             </a>
-
           </div>
 
-          {/* Features */}
           {FEATURE_BLOCKS.map((block) => (
             <div key={block.category} className="space-y-3">
-
               <h4 className="text-xs font-black uppercase tracking-[0.2em] text-brand-text/60 border-t pt-4">
                 {block.category}
               </h4>
@@ -163,20 +154,16 @@ Thank you.`
                   </div>
                 );
               })}
-
             </div>
           ))}
-
         </div>
       ))}
-
     </section>
   );
 };
 
-
 /* =========================
-   DESKTOP COMPARISON TABLE
+   DESKTOP TABLE
 ========================= */
 
 const ComparisonTable = () => {
@@ -185,6 +172,7 @@ const ComparisonTable = () => {
       <div className="max-w-[1200px] mx-auto">
         <div className="overflow-x-auto scrollbar-hide">
           <div className="min-w-[950px] rounded-[20px] border border-brand-border premium-shadow bg-brand-bg">
+
             <div className="sticky-header grid grid-cols-[220px_repeat(4,1fr)]">
               <div className="p-6 border-r border-brand-border bg-brand-text/[0.02] font-black uppercase text-sm">
                 Key Features
@@ -241,6 +229,44 @@ const ComparisonTable = () => {
 };
 
 /* =========================
+   COMMON SECTION (VISIBLE EVERYWHERE)
+========================= */
+
+const CommonSection = () => {
+  return (
+    <section className="px-6 pb-24">
+      <div className="max-w-4xl mx-auto bg-white/60 backdrop-blur-md border border-brand-border rounded-[18px] p-10 premium-shadow">
+
+        <div className="flex items-center justify-center gap-3 mb-8">
+          <span className="text-2xl">🔥</span>
+          <h3 className="text-xl font-black uppercase tracking-[0.3em]">
+            Common For All Plans
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {COMMON_FEATURES.map((feature, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-4 p-4 rounded-xl bg-brand-text/[0.03] border border-brand-border/50"
+            >
+              <div className="w-10 h-10 shrink-0 rounded-full flex items-center justify-center bg-gradient-to-br from-[#214B25] to-[#2E6B35] shadow-md">
+                <Check className="w-5 h-5 text-white stroke-[3.5px]" />
+              </div>
+
+              <span className="text-sm font-semibold text-brand-text/80">
+                {feature}
+              </span>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+/* =========================
    APP
 ========================= */
 
@@ -250,13 +276,9 @@ export default function App() {
       <Navbar />
       <main>
         <Header />
-
-        {/* Mobile Cards */}
         <MobilePricing />
-
-        {/* Desktop Table */}
         <ComparisonTable />
-
+        <CommonSection />
       </main>
     </div>
   );
