@@ -88,7 +88,7 @@ export const FEATURE_BLOCKS: FeatureBlock[] = [
       },
       {
         label: 'Professional Shoot',
-        values: { starter: false, growth: '1 Mobile', premium: '2 Shoots', elite: 'Drone / Pro' },
+        values: { starter: false, growth: '1 Shoots', premium: '2 Shoots', elite: 'Drone / Pro' },
       },
       {
         label: 'Script Writing',
