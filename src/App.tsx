@@ -33,11 +33,7 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img
-            src="/logo.png"
-            alt="Vedanco Logo"
-            className="w-12 h-12 object-contain"
-          />
+          <img src="/logo.png" alt="Vedanco Logo" className="w-12 h-12 object-contain" />
           <span className="font-bold text-lg tracking-tight text-brand-text">
             VEDANCO <span className="opacity-70">MARKETING</span>
           </span>
@@ -63,7 +59,7 @@ const Navbar = () => {
 
 const Header = () => {
   return (
-    <section className="pt-32 pb-2 px-6 text-center relative">
+    <section className="pt-32 pb-6 px-6 text-center relative">
       <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
         <div className="w-[600px] h-[600px] bg-brand-text/5 blur-[120px] rounded-full" />
       </div>
@@ -72,7 +68,7 @@ const Header = () => {
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.8 }}
         className="relative max-w-4xl mx-auto"
       >
         <h1 className="text-4xl md:text-5xl font-black text-brand-text mb-4 uppercase tracking-wider">
@@ -87,66 +83,94 @@ const Header = () => {
 };
 
 /* =========================
-   INDICATOR
+   MOBILE PRICING CARDS
 ========================= */
 
-const Indicator = ({ value }: { value: string | boolean }) => {
+const MobilePricing = () => {
   return (
-    <div className="flex items-center justify-center">
-      {typeof value === "boolean" ? (
-        value ? (
-          <Check className="w-6 h-6 text-brand-text stroke-[3px]" />
-        ) : (
-          <X className="w-6 h-6 text-[#C0392B] stroke-[3px]" />
-        )
-      ) : (
-        <span className="text-sm font-bold opacity-80">{value}</span>
-      )}
-    </div>
+    <section className="block md:hidden px-4 pb-20 space-y-10">
+
+      {PLANS.map((plan) => (
+        <div
+          key={plan.id}
+          className="rounded-2xl border border-brand-border bg-white shadow-lg p-6 space-y-6"
+        >
+          <div className="text-center">
+            <h3 className="text-xs tracking-[0.3em] font-bold uppercase text-brand-text/70">
+              {plan.name}
+            </h3>
+
+            <div className="text-3xl font-black mt-2 text-brand-text">
+              {plan.price}
+            </div>
+
+            <div className="text-xs uppercase opacity-50">
+              / Monthly
+            </div>
+
+            <button className="mt-4 w-full bg-brand-text text-white py-3 rounded-xl font-bold hover:opacity-90 transition">
+              Choose Plan
+            </button>
+          </div>
+
+          {FEATURE_BLOCKS.map((block) => (
+            <div key={block.category} className="space-y-3">
+
+              <h4 className="text-xs font-black uppercase tracking-[0.2em] text-brand-text/60 border-t pt-4">
+                {block.category}
+              </h4>
+
+              {block.rows.map((row) => {
+                const value = row.values[plan.id];
+
+                return (
+                  <div key={row.label} className="flex justify-between items-center text-sm">
+                    <span className="font-medium text-brand-text/80">
+                      {row.label}
+                    </span>
+
+                    {typeof value === "boolean" ? (
+                      value ? (
+                        <Check className="w-5 h-5 text-green-600" />
+                      ) : (
+                        <X className="w-5 h-5 text-red-500" />
+                      )
+                    ) : (
+                      <span className="font-semibold text-brand-text">
+                        {value}
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+
+        </div>
+      ))}
+
+    </section>
   );
 };
 
 /* =========================
-   COMPARISON TABLE
-========================= */
-
-/* =========================
-   COMPARISON TABLE
+   DESKTOP COMPARISON TABLE
 ========================= */
 
 const ComparisonTable = () => {
   return (
-    <section id="packages" className="pt-4 pb-24 px-6">
+    <section id="packages" className="hidden md:block pt-4 pb-24 px-6">
       <div className="max-w-[1200px] mx-auto">
-
-        {/* Horizontal Scroll Wrapper (Mobile Fix) */}
         <div className="overflow-x-auto scrollbar-hide">
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="min-w-[950px] rounded-[20px] border border-brand-border premium-shadow bg-brand-bg"
-          >
-
-            {/* Sticky Header */}
-            <div className="sticky-header grid grid-cols-[220px_repeat(4,1fr)] md:grid-cols-[300px_repeat(4,1fr)]">
-              <div className="p-6 border-r border-brand-border bg-brand-text/[0.02]">
-                <span className="text-sm font-black uppercase tracking-[0.2em] opacity-80">
-                  Key Features
-                </span>
+          <div className="min-w-[950px] rounded-[20px] border border-brand-border premium-shadow bg-brand-bg">
+            <div className="sticky-header grid grid-cols-[220px_repeat(4,1fr)]">
+              <div className="p-6 border-r border-brand-border bg-brand-text/[0.02] font-black uppercase text-sm">
+                Key Features
               </div>
 
               {PLANS.map((plan) => (
-                <div
-                  key={plan.id}
-                  className={cn(
-                    "p-6 text-center border-r border-brand-border last:border-r-0",
-                    plan.isElite && "bg-brand-text/[0.05]"
-                  )}
-                >
-                  <h3 className="text-sm font-black tracking-[0.2em] uppercase mb-2">
+                <div key={plan.id} className="p-6 text-center border-r border-brand-border last:border-r-0">
+                  <h3 className="text-sm font-black uppercase mb-2">
                     {plan.name}
                   </h3>
                   <div className="text-2xl font-black">{plan.price}</div>
@@ -155,101 +179,40 @@ const ComparisonTable = () => {
               ))}
             </div>
 
-            {/* Body */}
-            <div className="divide-y divide-brand-border bg-white/40">
+            {FEATURE_BLOCKS.map((block) => (
+              <div key={block.category}>
+                <div className="grid grid-cols-[220px_repeat(4,1fr)] bg-brand-text/[0.04] border-y border-brand-border">
+                  <div className="px-6 py-4 border-r border-brand-border font-black uppercase text-sm">
+                    {block.category}
+                  </div>
+                </div>
 
-              {FEATURE_BLOCKS.map((block, blockIdx) => (
-                <motion.div
-                  key={block.category}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: blockIdx * 0.05 }}
-                >
-
-                  <div className="grid grid-cols-[220px_repeat(4,1fr)] md:grid-cols-[300px_repeat(4,1fr)] bg-brand-text/[0.04] border-y border-brand-border">
-                    <div className="px-6 py-4 border-r border-brand-border font-black uppercase tracking-[0.2em] text-sm">
-                      {block.category}
+                {block.rows.map((row) => (
+                  <div key={row.label} className="grid grid-cols-[220px_repeat(4,1fr)] border-b border-brand-border">
+                    <div className="p-6 border-r border-brand-border font-bold uppercase text-sm">
+                      {row.label}
                     </div>
-                    {PLANS.map(plan => (
-                      <div key={plan.id} />
+
+                    {PLANS.map((plan) => (
+                      <div key={plan.id} className="p-6 flex items-center justify-center border-r border-brand-border last:border-r-0">
+                        {typeof row.values[plan.id] === "boolean" ? (
+                          row.values[plan.id] ? (
+                            <Check className="w-5 h-5 text-green-600" />
+                          ) : (
+                            <X className="w-5 h-5 text-red-500" />
+                          )
+                        ) : (
+                          row.values[plan.id]
+                        )}
+                      </div>
                     ))}
                   </div>
+                ))}
+              </div>
+            ))}
 
-                  {block.rows.map((row, rowIdx) => (
-                    <motion.div
-                      key={row.label}
-                      initial={{ opacity: 0, y: 12 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: rowIdx * 0.04 }}
-                      className="grid grid-cols-[220px_repeat(4,1fr)] md:grid-cols-[300px_repeat(4,1fr)] hover:bg-brand-text/[0.04] transition-all"
-                    >
-                      <div className="p-6 border-r border-brand-border font-bold uppercase text-sm bg-brand-text/[0.01]">
-                        {row.label}
-                      </div>
-
-                      {PLANS.map((plan) => (
-                        <div
-                          key={plan.id}
-                          className={cn(
-                            "p-6 flex items-center justify-center border-r border-brand-border last:border-r-0",
-                            plan.isElite && "bg-brand-text/[0.03]"
-                          )}
-                        >
-                          <Indicator value={row.values[plan.id]} />
-                        </div>
-                      ))}
-                    </motion.div>
-                  ))}
-
-                </motion.div>
-              ))}
-
-            </div>
-
-          </motion.div>
-        </div>
-
-        {/* Common Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mt-20"
-        >
-          <div className="bg-white/60 backdrop-blur-md border border-brand-border rounded-[18px] p-12 premium-shadow max-w-4xl mx-auto">
-            <div className="flex items-center justify-center gap-3 mb-10">
-              <span className="text-2xl">🔥</span>
-              <h3 className="text-xl font-black uppercase tracking-[0.3em]">
-                Common For All Plans
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {COMMON_FEATURES.map((feature, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -12 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.05 }}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-brand-text/[0.03] border border-brand-border/50"
-                >
-                  <div className="w-10 h-10 min-w-[40px] shrink-0 rounded-full flex items-center justify-center bg-gradient-to-br from-[#214B25] to-[#2E6B35] shadow-[0_6px_18px_rgba(33,75,37,0.25)]">
-                    <Check className="w-5 h-5 text-white stroke-[3.5px]" />
-                  </div>
-
-                  <span className="text-sm font-bold opacity-80">
-                    {feature}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
           </div>
-        </motion.div>
-
+        </div>
       </div>
     </section>
   );
@@ -265,7 +228,13 @@ export default function App() {
       <Navbar />
       <main>
         <Header />
+
+        {/* Mobile Cards */}
+        <MobilePricing />
+
+        {/* Desktop Table */}
         <ComparisonTable />
+
       </main>
     </div>
   );
