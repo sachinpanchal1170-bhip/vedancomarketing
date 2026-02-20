@@ -95,6 +95,7 @@ const MobilePricing = () => {
           key={plan.id}
           className="rounded-2xl border border-brand-border bg-white shadow-lg p-6 space-y-6"
         >
+          {/* Plan Header */}
           <div className="text-center">
             <h3 className="text-xs tracking-[0.3em] font-bold uppercase text-brand-text/70">
               {plan.name}
@@ -108,11 +109,27 @@ const MobilePricing = () => {
               / Monthly
             </div>
 
-            <button className="mt-4 w-full bg-brand-text text-white py-3 rounded-xl font-bold hover:opacity-90 transition">
+            {/* WhatsApp Button */}
+            <a
+              href={`https://wa.me/916353097642?text=${encodeURIComponent(
+              `Hello Vedanco Marketing,
+
+              I am interested in the ${plan.name} plan (${plan.price} / Monthly).
+
+              Please share more details and next steps.
+
+              Thank you.`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 block w-full text-center bg-brand-text text-white py-3 rounded-xl font-bold hover:opacity-90 transition"
+            >
               Choose Plan
-            </button>
+            </a>
+
           </div>
 
+          {/* Features */}
           {FEATURE_BLOCKS.map((block) => (
             <div key={block.category} className="space-y-3">
 
@@ -143,6 +160,7 @@ const MobilePricing = () => {
                   </div>
                 );
               })}
+
             </div>
           ))}
 
@@ -152,6 +170,7 @@ const MobilePricing = () => {
     </section>
   );
 };
+
 
 /* =========================
    DESKTOP COMPARISON TABLE
